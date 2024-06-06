@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useMemo } from "react";
 
 import Screen from "./components/Screen";
 
@@ -10,6 +11,9 @@ export default function KobayashiMaru(props: {
   tac: number;
   com: number;
 }) {
+  const distance = useMemo(() => {
+    return (props.nav + props.tac) / 2;
+  }, [props.nav, props.tac]);
   return (
     <div>
       <Screen>
@@ -40,6 +44,8 @@ export default function KobayashiMaru(props: {
               <div className="pl-8">147,943 M.T.</div>
               <div className="uppercase text-right">Cargo Capacity:</div>
               <div className="pl-8">97,00</div>
+              <div className="uppercase text-right">Distance:</div>
+              <div className="pl-8">{distance}</div>
             </div>
           </div>
         </div>
