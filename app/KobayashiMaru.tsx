@@ -67,15 +67,15 @@ export default function KobayashiMaru(props: {
           <div className="flex flex-row gap-8 text-4xl">
             <div className="text-sky-300">
               <span className="text-xs">NAV</span>
-              {props.nav ?? 0}
+              {state.nav ?? 0}
             </div>
             <div className="text-purple-400">
               <span className="text-xs">TAC</span>
-              {props.tac ?? 0}
+              {state.tac ?? 0}
             </div>
             <div className="text-blue-400">
               <span className="text-xs">COM</span>
-              {props.com ?? 0}
+              {state.com ?? 0}
             </div>
           </div>
         </div>
