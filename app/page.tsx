@@ -1,6 +1,6 @@
 "use client";
 import KobayashiMaru from "./KobayashiMaru";
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 export default function Home() {
   const initialState = { nav: 0, tac: 0, com:0 }
@@ -36,29 +36,24 @@ export default function Home() {
 
   const [state, dispatch] = useReducer(reducer, initialState)
   const [result, setResult] = useState(false)
+  const [thrusters, setThrusters] = useState(false)
+  useEffect(() => {
+    setTimeout(function() {
+      if (thrusters) {
+        dispatch({type:'increment-tac'})
+        dispatch({type:'increment-com'})
+        dispatch({type:'increment-nav'})
+      }
+    }, 1000)
+  })
   return (
     <main className="min-h-screen p-24">
       <KobayashiMaru {...state} />
       <button onClick={() => {
-        dispatch({ type: 'cheat' })
-      }}>Cheat
+        setThrusters(!thrusters)
+      }}>Engage Thrusters
       </button>
       <br/>
-      <button onClick={() => {
-        dispatch({ type: 'increment-nav' })
-      }}>Nav
-      </button>
-      <br />
-      <button onClick={() => {
-        dispatch({ type: 'increment-tac' })
-      }}>Tac
-      </button>
-      <br />
-      <button onClick={() => {
-        dispatch({ type: 'increment-com' })
-      }}>Com
-      </button>
-      <br />
       <button onClick={() => {
         let r = state.tac === 255 && state.com === 255 && state.nav === 255;
         setResult(r)
