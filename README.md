@@ -1,5 +1,9 @@
 # Frontend Workshop 2024: Kobayashi Maru
 
+## Your goal
+
+Get the values of `NAV`, `TAC` and `COM` to 255. Add a button to check that those values are correct and display a success or failure message.
+
 ## Tasks
 
 ### `useReducer`
