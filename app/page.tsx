@@ -6,12 +6,27 @@ export default function Home() {
   const initialState = { nav: 0, tac: 0, com:0 }
   const reducer = (state = initialState, action: { type: any; }) => {
     switch(action.type) {
-      case "set_values":
+      case "cheat":
+        return {
+          ...state,
+          nav: 254,
+          tac: 254,
+          com: 254,
+        };
+      case "increment-nav":
         return {
         ...state,
-          nav: 255,
-          tac: 255,
-          com: 255
+          nav: state.nav+1,
+        };
+      case "increment-tac":
+        return {
+          ...state,
+          tac: state.tac+1,
+        };
+      case "increment-com":
+        return {
+          ...state,
+          com: state.com+1,
         };
       default:
         return state;
@@ -25,9 +40,25 @@ export default function Home() {
     <main className="min-h-screen p-24">
       <KobayashiMaru {...state} />
       <button onClick={() => {
-        dispatch({ type: 'set_values' })
-      }}>Set Values
-      </button><br/>
+        dispatch({ type: 'cheat' })
+      }}>Cheat
+      </button>
+      <br/>
+      <button onClick={() => {
+        dispatch({ type: 'increment-nav' })
+      }}>Nav
+      </button>
+      <br />
+      <button onClick={() => {
+        dispatch({ type: 'increment-tac' })
+      }}>Tac
+      </button>
+      <br />
+      <button onClick={() => {
+        dispatch({ type: 'increment-com' })
+      }}>Com
+      </button>
+      <br />
       <button onClick={() => {
         let r = state.tac === 255 && state.com === 255 && state.nav === 255;
         setResult(r)
