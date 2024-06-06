@@ -1,15 +1,35 @@
 import React from "react";
+import { useReducer } from "react";
 
 import Screen from "./components/Screen";
 
 import KobayashiMaruImage from "./KobayashiMaruImage.png";
 import Image from "next/image";
 
+type KobayashiState = {
+  nav: number;
+  tac: number;
+  com: number;
+};
+
+type Dispatch = {
+  type: string;
+};
+
+const reducer = (state: KobayashiState, action: Dispatch): KobayashiState => {
+  return { ...state };
+};
+
 export default function KobayashiMaru(props: {
   nav: number;
   tac: number;
   com: number;
 }) {
+  const [state, dispatch] = useReducer(reducer, {
+    nav: props.nav,
+    tac: props.tac,
+    com: props.com,
+  });
   return (
     <div>
       <Screen>
