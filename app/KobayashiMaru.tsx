@@ -1,35 +1,16 @@
+"use client";
 import React from "react";
-import { useReducer } from "react";
 
 import Screen from "./components/Screen";
 
 import KobayashiMaruImage from "./KobayashiMaruImage.png";
 import Image from "next/image";
 
-type KobayashiState = {
-  nav: number;
-  tac: number;
-  com: number;
-};
-
-type Dispatch = {
-  type: string;
-};
-
-const reducer = (state: KobayashiState, action: Dispatch): KobayashiState => {
-  return { ...state };
-};
-
 export default function KobayashiMaru(props: {
   nav: number;
   tac: number;
   com: number;
 }) {
-  const [state, dispatch] = useReducer(reducer, {
-    nav: props.nav,
-    tac: props.tac,
-    com: props.com,
-  });
   return (
     <div>
       <Screen>
@@ -67,15 +48,15 @@ export default function KobayashiMaru(props: {
           <div className="flex flex-row gap-8 text-4xl">
             <div className="text-sky-300">
               <span className="text-xs">NAV</span>
-              {state.nav ?? 0}
+              {props.nav ?? 0}
             </div>
             <div className="text-purple-400">
               <span className="text-xs">TAC</span>
-              {state.tac ?? 0}
+              {props.tac ?? 0}
             </div>
             <div className="text-blue-400">
               <span className="text-xs">COM</span>
-              {state.com ?? 0}
+              {props.com ?? 0}
             </div>
           </div>
         </div>
