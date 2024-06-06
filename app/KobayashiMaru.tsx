@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+import React, { useReducer } from "react";
 
 import Screen from "./components/Screen";
 
