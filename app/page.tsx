@@ -1,6 +1,7 @@
 "use client";
 import KobayashiMaru from "./KobayashiMaru";
-import { useReducer, useEffect } from "react";
+import { useIncrement } from "./useIncrement";
+import { useReducer } from "react";
 
 type KobayashiState = {
   nav: number;
@@ -8,13 +9,19 @@ type KobayashiState = {
   com: number;
 };
 
-type Dispatch = {
+export type Dispatch = {
   type: string;
 };
 
 const reducer = (state: KobayashiState, action: Dispatch): KobayashiState => {
   if (action.type === "increment_nav") {
     return { ...state, nav: state.nav + 1 };
+  }
+  if (action.type === "increment_tac") {
+    return { ...state, tac: state.tac + 1 };
+  }
+  if (action.type === "increment_com") {
+    return { ...state, com: state.com + 1 };
   }
   return { ...state };
 };
@@ -26,20 +33,9 @@ export default function Home() {
     com: 0,
   });
 
-  const runNav = state.nav < 255;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (runNav) {
-        dispatch({ type: "increment_nav" });
-      } else {
-        clearInterval(interval);
-      }
-    }, 30);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [runNav]);
+  useIncrement(state.nav, 30, () => dispatch({ type: "increment_nav" }));
+  useIncrement(state.tac, 70, () => dispatch({ type: "increment_tac" }));
+  useIncrement(state.com, 120, () => dispatch({ type: "increment_com" }));
 
   return (
     <main className="min-h-screen p-24">
