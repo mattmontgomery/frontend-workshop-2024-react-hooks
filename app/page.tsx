@@ -16,17 +16,17 @@ export default function Home() {
       case "increment-nav":
         return {
         ...state,
-          nav: state.nav+1,
+          nav: state.nav < 255 ? state.nav+1: state.nav,
         };
       case "increment-tac":
         return {
           ...state,
-          tac: state.tac+1,
+          tac: state.tac < 255 ? state.tac+1: state.tac,
         };
       case "increment-com":
         return {
           ...state,
-          com: state.com+1,
+          com: state.com < 255 ? state.com+1: state.com,
         };
       default:
         return state;
@@ -38,13 +38,16 @@ export default function Home() {
   const [result, setResult] = useState(false)
   const [thrusters, setThrusters] = useState(false)
   useEffect(() => {
-    setTimeout(function() {
+    let timer = setTimeout(function() {
       if (thrusters) {
         dispatch({type:'increment-tac'})
         dispatch({type:'increment-com'})
         dispatch({type:'increment-nav'})
       }
-    }, 1000)
+    }, 100)
+    return () => {
+      clearTimeout(timer)
+    }
   })
   return (
     <main className="min-h-screen p-24">
