@@ -1,16 +1,18 @@
 "use client"
-import React, { useReducer } from "react";
+import React, { useMemo, useReducer } from "react";
 
 import Screen from "./components/Screen";
 
 import KobayashiMaruImage from "./KobayashiMaruImage.png";
 import Image from "next/image";
+import { calculateDiff } from "@/app/utils";
 
 export default function KobayashiMaru(props: {
   nav: number;
   tac: number;
   com: number;
 }) {
+  const [diffNav, diffTac]= useMemo(() => calculateDiff(props.nav, props.tac), [props.nav, props.tac])
   return (
     <div>
       <Screen>
@@ -41,6 +43,10 @@ export default function KobayashiMaru(props: {
               <div className="pl-8">147,943 M.T.</div>
               <div className="uppercase text-right">Cargo Capacity:</div>
               <div className="pl-8">97,00</div>
+              <div className="uppercase text-right">Distance from ship (Nav):</div>
+              <div className="pl-8">{diffNav}</div>
+              <div className="uppercase text-right">Distance from ship (Tac):</div>
+              <div className="pl-8">{diffTac}</div>
             </div>
           </div>
         </div>
