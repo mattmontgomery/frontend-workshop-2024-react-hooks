@@ -5,6 +5,19 @@ import { checkResult, getResult, TARGET_VALUE } from "@/app/utils";
 
 export default function Home() {
   const initialState = { nav: 0, tac: 0, com:0 }
+  const [thrusters, setThrusters] = useState(false)
+  useEffect(() => {
+    let timer = setTimeout(function() {
+      if (thrusters) {
+        dispatch({type:'increment-tac'})
+        dispatch({type:'increment-com'})
+        dispatch({type:'increment-nav'})
+      }
+    }, 100)
+    return () => {
+      clearTimeout(timer)
+    }
+  })
   const reducer = (state = initialState, action: { type: any; }) => {
     switch(action.type) {
       case "increment-nav":
@@ -29,28 +42,17 @@ export default function Home() {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [thrusters, setThrusters] = useState(false)
-  let r = getResult(state.nav, state.tac, state.com)
-  useEffect(() => {
-    let timer = setTimeout(function() {
-      if (thrusters) {
-        dispatch({type:'increment-tac'})
-        dispatch({type:'increment-com'})
-        dispatch({type:'increment-nav'})
-      }
-    }, 100)
-    return () => {
-      clearTimeout(timer)
-    }
-  })
+  let action = thrusters ? "Disengage" : "Engage"
   return (
     <main className="min-h-screen p-24">
       <KobayashiMaru {...state} />
-      <button onClick={() => {
+      <button
+        style={{ borderColor: "orange", padding: "1em", borderWidth: "medium", borderTopRightRadius: "5em", borderBottomRightRadius: "5em" }}
+        className="text-orange-400"
+        onClick={() => {
         setThrusters(!thrusters)
-      }}>Engage Thrusters
+      }}>{action} Thrusters
       </button>
-      <br/>
     </main>
   );
 }

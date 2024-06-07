@@ -1,5 +1,14 @@
 "use client"
-import React, { useCallback, useDebugValue, useLayoutEffect, useMemo, useReducer, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useDebugValue,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState
+} from "react";
 
 import Screen from "./components/Screen";
 
@@ -34,7 +43,7 @@ export default function KobayashiMaru(props: {
               height="350"
               alt="The USS Enterprise in three-dimensional space"
               src={KobayashiMaruImage}
-              style={{transform: rotateDirections}}
+              style={{ transform: rotateDirections }}
             />
           </div>
           <div className="grid grid-flow-row gap-8">
@@ -63,7 +72,7 @@ export default function KobayashiMaru(props: {
             </div>
           </div>
         </div>
-        <div style={{zIndex:100}}>
+        <div style={{ zIndex: 100 }}>
           <div className="flex flex-row gap-8 text-4xl">
             <div className="text-sky-300">
               <span className="text-xs">NAV</span>
@@ -80,9 +89,11 @@ export default function KobayashiMaru(props: {
           </div>
         </div>
       </Screen>
-      <button onClick={useCallback(() => {
-        setResult(getResult(props.nav, props.tac, props.com))
-      }, [props])}>Check Values
+      <button
+        style={{ padding: "1em", borderWidth: "medium", borderTopRightRadius: "5em", borderBottomRightRadius: "5em" }}
+        onClick={useCallback(() => {
+          setResult(getResult(props.nav, props.tac, props.com))
+        }, [props])}>Check Values
       </button>
       <p>Result: {checkResult(result)}</p>
     </div>
