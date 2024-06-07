@@ -1,32 +1,26 @@
 "use client";
 import KobayashiMaru from "./KobayashiMaru";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useDebugValue, useEffect, useReducer, useState } from "react";
+import { checkResult, getResult, TARGET_VALUE } from "@/app/utils";
 
 export default function Home() {
   const initialState = { nav: 0, tac: 0, com:0 }
   const reducer = (state = initialState, action: { type: any; }) => {
     switch(action.type) {
-      case "cheat":
-        return {
-          ...state,
-          nav: 254,
-          tac: 254,
-          com: 254,
-        };
       case "increment-nav":
         return {
         ...state,
-          nav: state.nav < 255 ? state.nav+1: state.nav,
+          nav: state.nav < TARGET_VALUE ? state.nav+1: state.nav,
         };
       case "increment-tac":
         return {
           ...state,
-          tac: state.tac < 255 ? state.tac+1: state.tac,
+          tac: state.tac < TARGET_VALUE ? state.tac+1: state.tac,
         };
       case "increment-com":
         return {
           ...state,
-          com: state.com < 255 ? state.com+1: state.com,
+          com: state.com < TARGET_VALUE ? state.com+1: state.com,
         };
       default:
         return state;
@@ -35,8 +29,8 @@ export default function Home() {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [result, setResult] = useState(false)
   const [thrusters, setThrusters] = useState(false)
+  let r = getResult(state.nav, state.tac, state.com)
   useEffect(() => {
     let timer = setTimeout(function() {
       if (thrusters) {
@@ -57,12 +51,6 @@ export default function Home() {
       }}>Engage Thrusters
       </button>
       <br/>
-      <button onClick={() => {
-        let r = state.tac === 255 && state.com === 255 && state.nav === 255;
-        setResult(r)
-      }}>Check Values
-      </button>
-      <p>Result: {result ? "Success" : "Fail"}</p>
     </main>
   );
 }
